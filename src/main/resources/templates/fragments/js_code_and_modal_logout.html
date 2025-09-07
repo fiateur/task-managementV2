@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr"  xmlns:th="http://www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<body>
+
+    <div th:fragment="js_code_and_modal_logout_fragment">
+        <!-- Bootstrap core JavaScript -->
+        <script th:src="@{/js/scripts.js}"></script>
+        <script th:src="@{/assets/demo/chart-area-demo.js}"></script>
+        <script th:src="@{/assets/demo/chart-bar-demo.js}"></script>
+
+        <!-- Page level custom datatables scripts -->
+        <script th:src="@{/js/datatables-simple-demo.js}"></script>
+
+        <!--  Bootstrap public JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    </div>
+
+    <div th:fragment="js_template">
+        <!-- Page level plugins datatables-->
+        <script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
+        <!-- <script src="vendor/datatables/jquery.dataTables.min.js"></script> -->
+        <script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+        <!-- <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script> -->
+
+        <!-- Page level custom scripts -->
+        <script th:src="@{/js/demo/datatables-demo.js}"></script>
+        <!-- <script src="js/demo/datatables-demo.js"></script> -->
+    </div>
+
+
+</body>
+</html>
