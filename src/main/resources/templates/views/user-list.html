@@ -21,6 +21,13 @@
                 <h1 class="mt-4" th:utext="#{${Titre}}"></h1>
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item active" th:utext="#{${Titre}}"></li>
+<<<<<<< HEAD
+=======
+                    <li th:classappend="${ successOperation != null ? 'bg-success text-bg-success' : 'bg-danger text-bg-danger' }" style="margin-left: 30%;">
+                        <th:block th:if="${successOperation}" th:text="${successOperation}"></th:block>
+                        <th:block th:if="${errorOperation}" th:text="${errorOperation}"></th:block>
+                    </li>
+>>>>>>> f877545 (ADD-UPDATE-DESABLED-FLASH REDIRECT MESSAGE)
                 </ol>
 
                 <!-- Ici le début du Contenu de la Page -->
@@ -68,7 +75,36 @@
                                         <td th:text="${user.email}">
                                         <td th:text="${user.isAccountNonLocked}"></td>
                                         <td th:text="${user.role?.code}"></td>
+<<<<<<< HEAD
                                         <td></td>
+=======
+                                        <td class="text-align-center">
+                                            <div class="btn-group align-middle" role="group" aria-label="Basic example">
+                                                <!--
+                                                    <button type="button" class="btn btn-labeled btn-success">
+                                                        <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Success
+                                                    </button>
+                                                    <button type="button" class="btn btn-labeled btn-danger">
+                                                        <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>Cancel
+                                                    </button>
+                                                    <button type="button" class="btn btn-labeled btn-warning">
+                                                        <span class="btn-label"><i class="glyphicon glyphicon-bookmark"></i></span>Bookmark
+                                                    </button>
+                                                    <button type="button" class="btn btn-labeled btn-primary">
+                                                        <span class="btn-label"><i class="glyphicon glyphicon-camera"></i></span>Camera
+                                                    </button>
+                                                -->
+                                                <a class="btn btn-info margin-justify" th:href="@{/home-edit-user(id = ${user.id}, id2 = ${user.id}) }">
+                                                    <span class="btn-label"><i class="glyphicon glyphicon-refresh"></i></span>Modifier
+                                                </a>
+                                                <a class="btn margin-justify" th:classappend="${ user.isAccountNonLocked() == true ? 'btn-danger' : 'btn-primary' }" th:href="@{/home-disable-OR-enable-user(id = ${user.id}) }">
+                                                    <span class="btn-label"><i class="glyphicon glyphicon-trash"></i>
+                                                        <th:block class="mt-4" th:utext="#{${ user.isAccountNonLocked() == true ? 'commun.label.desactiver' : 'commun.label.activer' }}"></th:block>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </td>
+>>>>>>> f877545 (ADD-UPDATE-DESABLED-FLASH REDIRECT MESSAGE)
                                     </tr>
                                 </tbody>
                             </table>

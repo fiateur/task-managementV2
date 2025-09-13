@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Include du Fragment Header.html -->
+<head th:replace="fragments/header :: headerFragment"></head>
+
+<body class="sb-nav-fixed">
+
+<!-- Ici le Contenu du bloc de ligne Horizontale : header -->
+<nav th:replace="fragments/nav_horizontale_content :: nav_horizontale_content_fragment"></nav>
+
+<!-- Ici le Contenu du bloc après Ligne Menu Horizontale -->
+<div id="layoutSidenav">
+    <!-- Ici le Contenu du bloc de ligne Verticale -->
+    <div th:replace="fragments/nav_verticale_content :: nav_verticale_content_fragment"></div>
+
+    <div id="layoutSidenav_content">
+        <!-- Ici le Contenu du bloc principale -->
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4" th:utext="#{${Titre}}"></h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active" th:utext="#{${Titre}}"></li>
+                </ol>
+
+                <!-- Ici le début du Contenu de la Page -->
+                <div class="row">
+
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-7">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4"></h3><h1 class="mt-4" th:utext="#{${Titre}}"></h1></div>
+                                    <div class="card-body">
+
+                                        <form role="form" th:action="@{/home-add-user}" th:object="${utilisateur}"  method="post">
+
+                                            <input type="hidden" th:field="*{id}" >
+
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input class="form-control" id="inputFirstName" type="text" required placeholder="Enter your first name" th:field="*{firstName}" />
+                                                        <label for="inputFirstName" th:utext="#{${LabelFistName}}"> </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-floating">
+                                                        <input class="form-control" id="inputLastName" type="text" required placeholder="Enter your last name"  th:field="*{lastName}" />
+                                                        <label for="inputLastName" th:utext="#{${LabelLastName}}"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating">
+                                                        <select class="form-select" id="inputSexe"  th:field="*{sexe}">
+                                                            <option th:value="#{${LabelSexeF}}" th:text="#{${LabelFeminin}}"></option>
+                                                            <option th:value="#{${LabelSexeM}}" th:text="#{${LabelMasculin}}"></option>
+                                                        </select>
+                                                        <label for="inputSexe" th:utext="#{${LabelSexe}}"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-floating">
+                                                        <input class="form-control" id="inputTel" type="number" required placeholder="Enter your tel number"  th:field="*{telephone}"/>
+                                                        <label for="inputTel" th:utext="#{${LabelTelephone}}"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input class="form-control" id="inputEmail" type="email" required placeholder="name@example.com"  th:field="*{email}" />
+                                                        <label for="inputEmail" th:utext="#{${LabelEmail}}"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-floating">
+                                                        <select class="form-select" id="inputRole" th:field="*{role}" >
+                                                            <option th:each="role : ${listRole}"
+                                                                    th:value="${role.id}"
+                                                                    th:text="${role.libelle}">
+                                                            </option>
+                                                        </select>
+                                                        <label for="inputRole" th:utext="#{${LabelRole}}"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input class="form-control" id="inputPassword" type="password" placeholder="Create a password"  th:field="*{password}" />
+                                                        <label for="inputPassword" th:utext="#{${LabelPassword}}"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input class="form-control" id="inputPasswordConfirm" type="password" placeholder="Confirm password"  th:field="*{confirmPassword}" />
+                                                        <label for="inputPasswordConfirm" th:utext="#{${LabelConfirmPassword}}"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-auto">
+                                                <div class="form-group">
+                                                    <label class="radio-inline">
+                                                        <input class="custom-radio" type="radio" th:field="*{accountNonLocked}" th:value="true" th:checked="${utilisateur.isAccountNonLocked()}">
+                                                        <label th:if="${utilisateur.isAccountNonLocked() == true}" th:text="${'Enabled'}"> </label>
+                                                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <label class="radio-inline">
+                                                        <input class="custom-radio" type="radio" th:field="*{accountNonLocked}" th:value="false">
+                                                        <label  th:if="${!utilisateur.isAccountNonLocked() == false}" th:text="${'Disabled'}"></label>
+                                                    </label>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-4 mb-0">
+                                                <div class="d-grid"><button type="submit" class="btn btn-primary btn-block" th:title="#{${LabelSave}}" th:text="#{${LabelSave}}"></button></div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                    <div class="card-footer text-center py-3">
+                                        <div class="small"><a href="login.html" th:text="${LabelHaveAccount}"></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer : Ici le Contenu du bloc pied de page -->
+        <div th:replace="fragments/footer :: footerFragment"></div>
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper - FIN DU BODY REEL -->
+
+<!-- Javascript : Ici le Contenu du bloc des fichiers JS -->
+<div th:replace="fragments/js_code_and_modal_logout :: js_code_and_modal_logout_fragment"></div>
+</body>
+</html>
