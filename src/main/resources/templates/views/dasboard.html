@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Include du Fragment Header.html -->
+<head th:replace="fragments/header :: headerFragment"></head>
+
+<body class="sb-nav-fixed">
+
+<!-- Ici le Contenu du bloc de ligne Horizontale : header -->
+<nav th:replace="fragments/nav_horizontale_content :: nav_horizontale_content_fragment"></nav>
+
+<!-- Ici le Contenu du bloc après Ligne Menu Horizontale -->
+<div id="layoutSidenav">
+    <!-- Ici le Contenu du bloc de ligne Verticale -->
+    <div th:replace="fragments/nav_verticale_content :: nav_verticale_content_fragment"></div>
+
+    <div id="layoutSidenav_content">
+        <!-- Ici le Contenu du bloc principale -->
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4" th:utext="#{${Titre}}"></h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active" th:utext="#{${Titre}}"></li>
+                </ol>
+
+                <!-- Ici le début du Contenu de la Page -->
+                <div class="row">
+
+
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer : Ici le Contenu du bloc pied de page -->
+        <div th:replace="fragments/footer :: footerFragment"></div>
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper - FIN DU BODY REEL -->
+
+<!-- Javascript : Ici le Contenu du bloc des fichiers JS -->
+<div th:replace="fragments/js_code_and_modal_logout :: js_code_and_modal_logout_fragment"></div>
+</body>
+</html>

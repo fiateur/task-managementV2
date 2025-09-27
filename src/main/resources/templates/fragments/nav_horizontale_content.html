@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr"  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+
+    <!-- Ici le Contenu du bloc de ligne Horizontale : nav_horozontal -->
+    <nav th:fragment="nav_horizontale_content_fragment" class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="#" sec:authorize="isAuthenticated()" >
+            <th:block sec:authorize="hasAuthority('ADMIN')" th:utext="${'Administrateur'}">Admin Profile.</th:block>
+            <th:block sec:authorize="hasAnyAuthority('CONSULTATION','USER')" th:utext="${'Utilisateur'}">User Profile.</th:block>
+           <!-- <th:block sec:authorize="isAuthenticated()" th:utext="${#request.userPrincipal.name}"></th:block>-->
+        </a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        <span class="mr-2 d-none d-lg-inline text-gray-600 small" sec:authorize="isAuthenticated()" th:utext="${session.connectedUserDB.lastName + ' ' + session.connectedUserDB.firstName}"></span>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+            </div>
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#!" sec:authorize="hasAnyAuthority('ADMIN', 'CONSULTATION', 'USER')">Settings</a></li>
+                    <li><a class="dropdown-item" href="#!" sec:authorize="hasAnyAuthority('ADMIN', 'CONSULTATION', 'USER')">Activity Log</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" th:href="@{/index-logout}" th:text="'Logout'"></a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <!-- End of nav_H -->
+
+</body>
+</html>
