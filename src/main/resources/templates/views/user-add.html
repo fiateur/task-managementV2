@@ -20,7 +20,7 @@
             <div class="container-fluid px-4">
                 <h1 class="mt-4" th:utext="#{${Titre}}"></h1>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active" th:utext="#{${Titre}}"></li>
+                    <li class="breadcrumb-item active" th:utext="${utilisateur.id == null} ? #{${TitreAdd}} : #{${TitreMod}}"></li>
                 </ol>
 
                 <!-- Ici le début du Contenu de la Page -->
@@ -30,7 +30,7 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-7">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4"></h3><h1 class="mt-4" th:utext="#{${Titre}}"></h1></div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4"></h3><h1 class="mt-4" th:utext="${utilisateur.id == null} ? #{${TitreAdd}} : #{${TitreMod}}"></h1></div>
                                     <div class="card-body">
 
                                         <form role="form" th:action="@{/home-add-user}" th:object="${utilisateur}"  method="post">

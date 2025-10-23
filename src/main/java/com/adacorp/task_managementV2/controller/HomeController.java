@@ -2,6 +2,7 @@ package com.adacorp.task_managementV2.controller;
 
 import com.adacorp.task_managementV2.constantes.RoleConstante;
 import com.adacorp.task_managementV2.constantes.StateConstante;
+
 import com.adacorp.task_managementV2.model.HostName;
 import com.adacorp.task_managementV2.model.Task;
 import com.adacorp.task_managementV2.model.Utilisateur;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -58,7 +60,11 @@ public class HomeController {
 
     @GetMapping(value = "/index-login")
     public String indexLogin(Model model){
-        model.addAttribute(SUCCESS,"Task Management Application !!!") ;
+
+        //ici on verifie si l'attribut SUCCESS est present pour eviter de le remplacer
+        if (!model.containsAttribute("SUCCESS")) {
+            model.addAttribute("SUCCESS", "Task Management Application !!!");
+        }
         // **************** Ceci est hors Spring-security ***********************
         // return "redirect:/home-list-users";
         // **************** Ceci est hors Spring-security ***********************
@@ -69,7 +75,7 @@ public class HomeController {
     public String dashboard(Principal p, HttpServletRequest request, Model model) {
 
         /* Utilisateur de la session de Connexion */
-        Utilisateur connectedUserDB = userService.findByEmail( p.getName() ).get() ;
+        Utilisateur connectedUserDB = userService.findByEmail( p.getName()).get() ;
 
         // Gestion de l'Authentification en Mode ADMIN
         if (connectedUserDB.getRole().getCode().equals(RoleConstante.ROLE_ADMIN)) {
@@ -130,10 +136,15 @@ public class HomeController {
     }
 
     @GetMapping(value = "/index-logout")
-    public String logOut(HttpServletRequest request, Model model){
-        model.addAttribute(SUCCESS,"Task Management Application - Logout User !!!") ;
+    //public String logOut(HttpServletRequest request, Model model){
+       // model.addAttribute(SUCCESS,"Task Management Application - Logout User !!!") ;
         // On détruit la session
+       // request.getSession().invalidate();
+       // return INDEX_LOGIN ;
+    //}
+    public String logOut(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         request.getSession().invalidate();
-        return INDEX_LOGIN ;
+        redirectAttributes.addFlashAttribute("SUCCESS", "Déconnexion réussie !");
+        return "redirect:/index-login";
     }
 }

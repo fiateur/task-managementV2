@@ -31,6 +31,7 @@
                         </nav>
                     </div>
                 </sec:authorize>
+                <!-- FIN DU MODULE UTILISATEUR -->
 
                 <!-- GESTION DU MODULE TACHES -->
                 <th:block sec:authorize="hasAnyAuthority('ADMIN', 'USER', 'CONSULTATION')">
@@ -53,7 +54,9 @@
                         </nav>
                     </div>
                 </th:block>
+                <!-- FIN DU MODULE GESTION DES TACHES -->
 
+                <!--  MODULE PAGE -->
                 <th:block sec:authorize="hasAnyAuthority('ADMIN','USER','CONSULTATION')">
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>

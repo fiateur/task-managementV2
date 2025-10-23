@@ -50,7 +50,6 @@ public class SecurityConfig {
                         .requestMatchers("/index-logout").permitAll()
                         .requestMatchers("/index-login").permitAll()
                         .requestMatchers("/index-forgot-password").permitAll()
-                        .requestMatchers("/index-forgot-password").permitAll()
                         .requestMatchers("/index-forgot-password-send-code").permitAll()
                         .requestMatchers("/index-forgot-password-otpValidation-code").permitAll()
                         .requestMatchers("/index-forgot-password-changePassword-After-otpValidation-code").permitAll()

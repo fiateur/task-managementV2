@@ -164,8 +164,8 @@ public class UserController {
 
         if (utilisateur.getConfirmPassword().equals( utilisateur.getPassword() )){
 
-            // String password = this.passwordEncoder.encode   ( utilisateur.getPassword() ) ;
-            String password = utilisateur.getPassword() ;
+            String password = this.passwordEncoder.encode   ( utilisateur.getPassword() ) ;
+            //String password = utilisateur.getPassword() ;
             String page = null ;
             // si le User qui vient du form n'a pas d'id alors c'est un nouvel enrégistrement
             if ( utilisateur.getId() == null ) {
@@ -200,7 +200,7 @@ public class UserController {
                     request.getSession().setAttribute( USER_SESSION, connectedUserDB.get() ) ;
                 }
                 */
-                page = PAGE_USER_ADD ;
+                page = "redirect:/home-list-users" ;
             }
 
             return page ;
@@ -261,6 +261,7 @@ public class UserController {
         // ----------------------------------------------------------------------------
 
         return PAGE_USER_ADD ;
+        //return "redirect:/home-list-users" ;
     }
 
     @GetMapping(value = "/home-disable-OR-enable-user")
@@ -284,7 +285,8 @@ public class UserController {
 
     public void setAttributCommun (Model model){
         List<Role> roleList = this.roleService.findAll() ;
-        model.addAttribute("Titre", "page.user.addUser") ;
+        model.addAttribute("TitreAdd", "page.user.addUser") ;
+        model.addAttribute("TitreMod", "page.user.ModUser") ;
         model.addAttribute("LabelFistName", "commun.label.firstName") ;
         model.addAttribute("LabelLastName", "commun.label.lastName") ;
         model.addAttribute("LabelSexe", "commun.label.sexe") ;
@@ -299,6 +301,7 @@ public class UserController {
         model.addAttribute("LabelRole", "commun.label.role") ;
         model.addAttribute("LabelSave", "commun.label.save") ;
         model.addAttribute("LabelHaveAccount", "Have an account? Go to login") ;
+        model.addAttribute("Titre", "page.user.label.usersManagment") ;
         model.addAttribute("listRole", roleList) ;
     }
 }

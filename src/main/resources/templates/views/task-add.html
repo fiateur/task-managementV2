@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <!-- Include du Fragment Header.html -->
+    <head th:replace="fragments/header :: headerFragment"></head>
+
+    <body class="sb-nav-fixed">
+
+    <!-- Ici le Contenu du bloc de ligne Horizontale : header -->
+    <nav th:replace="fragments/nav_horizontale_content :: nav_horizontale_content_fragment"></nav>
+
+        <!-- Ici le Contenu du bloc après Ligne Menu Horizontale -->
+        <div id="layoutSidenav">
+            <!-- Ici le Contenu du bloc de ligne Verticale -->
+            <div th:replace="fragments/nav_verticale_content :: nav_verticale_content_fragment"></div>
+
+            <div id="layoutSidenav_content">
+                <!-- Ici le Contenu du bloc principale -->
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4" th:utext="#{${Titre}}"></h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active"  th:utext="${task.id == null} ? #{${labelAddTask}} : #{${labelModTask}}"></li>
+                        </ol>
+
+                        <!-- Ici le début du Contenu de la Page -->
+                        <div class="row">
+
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-7">
+                                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                            <div class="card-header"><h3 class="text-center font-weight-light my-4"></h3><h1 class="mt-4" th:utext="${task.id == null} ? #{${labelAddTask}} : #{${labelModTask}}"></h1></div>
+                                            <div class="card-body">
+
+                                                <form role="form" th:action="@{/home-add-task}" th:object="${task}"  method="post">
+
+                                                    <input type="hidden" th:field="*{id}" >
+
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-6">
+                                                            <div class="form-floating mb-3 mb-md-0">
+                                                                <input class="form-control" id="inputName" type="text" required  th:field="*{name}" />
+                                                                <label for="inputName" th:utext="#{${LabelName}}"> </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-floating">
+                                                                <textarea  class="form-control" id="inputDescription" style="overflow: auto" th:field="*{description}"></textarea>
+                                                                <label for="inputDescription" th:utext="#{${LabelDescription}}"></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-6">
+                                                            <div class="form-floating">
+                                                                <select class="form-select" id="inputState" th:field="*{state}" >
+                                                                    <option th:each="state : ${listState}"
+                                                                            th:value="${state.id}"
+                                                                            th:text="${state.code}">
+                                                                    </option>
+                                                                </select>
+                                                                <label for="inputState" th:utext="#{${LabelState}}"></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mt-4 mb-0">
+                                                        <div class="d-grid"><button type="submit" class="btn btn-primary btn-block" th:title="#{${LabelSave}}" th:utext="#{${LabelSave}}"></button></div>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+                <!-- Footer : Ici le Contenu du bloc pied de page -->
+                <div th:replace="fragments/footer :: footerFragment"></div>
+            </div>
+            <!-- End of Content Wrapper -->
+        </div>
+        <!-- End of Page Wrapper - FIN DU BODY REEL -->
+
+        <!-- Javascript : Ici le Contenu du bloc des fichiers JS -->
+        <div th:replace="fragments/js_code_and_modal_logout :: js_code_and_modal_logout_fragment"></div>
+    </body>
+</html>
