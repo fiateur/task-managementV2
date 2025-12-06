@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Include du Fragment Header.html -->
+<head th:replace="fragments/header :: headerFragment"></head>
+
+<body class="sb-nav-fixed">
+
+<!-- Ici le Contenu du bloc de ligne Horizontale : header -->
+<nav th:replace="fragments/nav_horizontale_content :: nav_horizontale_content_fragment"></nav>
+
+<!-- Ici le Contenu du bloc après Ligne Menu Horizontale -->
+<div id="layoutSidenav">
+    <!-- Ici le Contenu du bloc de ligne Verticale -->
+    <div th:replace="fragments/nav_verticale_content :: nav_verticale_content_fragment"></div>
+
+    <div id="layoutSidenav_content">
+        <!-- Ici le Contenu du bloc principale -->
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4" th:utext="#{${Titre}}"></h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active" th:utext="#{${Titre}}"></li>
+                    <li th:classappend="${ successOperation != null ? 'bg-success text-bg-success' : 'bg-danger text-bg-danger' }" style="margin-left: 30%;">
+                        <th:block th:if="${successOperation}" th:text="${successOperation}"></th:block>
+                        <th:block th:if="${errorOperation}" th:text="${errorOperation}"></th:block>
+                    </li>
+                </ol>
+
+                <!-- Ici le début du Contenu de la Page -->
+                <div class="row">
+
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            <th:block th:text="#{page.habilitation.listhabilitation}"> </th:block>
+                        </div>
+                        <div class="card-body">
+                            <table id="datatablesSimple">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Code</th>
+                                        <th>Libelle</th>
+                                        <th>Created Date</th>
+                                        <th>Last Modified Date</th>
+                                        <th>Action(s)</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Code</th>
+                                        <th>Libelle</th>
+                                        <th>Created Date</th>
+                                        <th>Last Modified Date</th>
+                                        <th>Action(s)</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <!-- Si Liste Vide, Aucun résultat dans le tableau -->
+                                    <tr th:if="${#lists.isEmpty(habilitations)}"><td colspan="8" th:utext="#{commun.aucunresultat}"></td></tr>
+                                    <!-- Si Liste chargée, on affiche le résultat dans le tableau -->
+                                    <tr th:if="${not #lists.isEmpty(habilitations)}" th:each="habilitation : ${habilitations}" style="text-transform: uppercase;">
+                                        <td><th:block th:if="${!#strings.isEmpty(habilitation.id)}" th:text="${habilitation.id}"></th:block></td>
+                                        <td><th:block th:if="${!#strings.isEmpty(habilitation.code)}" th:text="${habilitation.code}"></th:block></td>
+                                        <td th:text="${not #strings.isEmpty(habilitation.libelle) ? habilitation.libelle : ''}"></td>
+                                        <!-- <td th:text="${#dates.format(user.dateCreation, 'dd-MM-yyyy')}"></td> -->
+                                        <td th:text="${habilitation.dateCreation != null} ? ${#dates.format(habilitation.dateCreation, 'dd/MM/yyyy')} : #{commun.label.table.vide}"></td>
+                                        <td th:text="${habilitation.dateModification != null} ? ${#dates.format(habilitation.dateModification, 'dd/MM/yyyy')} : #{commun.label.table.vide}"></td>
+                                        <td class="text-align-center">
+                                            <div class="btn-group align-middle" habilitation="group" aria-label="Basic example">
+                                                <!--
+                                                    <button type="button" class="btn btn-labeled btn-success">
+                                                        <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Success
+                                                    </button>
+                                                    <button type="button" class="btn btn-labeled btn-danger">
+                                                        <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>Cancel
+                                                    </button>
+                                                    <button type="button" class="btn btn-labeled btn-warning">
+                                                        <span class="btn-label"><i class="glyphicon glyphicon-bookmark"></i></span>Bookmark
+                                                    </button>
+                                                    <button type="button" class="btn btn-labeled btn-primary">
+                                                        <span class="btn-label"><i class="glyphicon glyphicon-camera"></i></span>Camera
+                                                    </button>
+                                                -->
+                                                <a class="btn btn-info margin-justify" th:href="@{/home-edit-habilitation(id = ${habilitation.id}, id2 = ${habilitation.id}) }">
+                                                    <span class="btn-label"><i class="glyphicon glyphicon-refresh"></i></span>Modifier
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer : Ici le Contenu du bloc pied de page -->
+        <div th:replace="fragments/footer :: footerFragment"></div>
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper - FIN DU BODY REEL -->
+
+<!-- Javascript : Ici le Contenu du bloc des fichiers JS -->
+<div th:replace="fragments/js_code_and_modal_logout :: js_code_and_modal_logout_fragment"></div>
+</body>
+</html>

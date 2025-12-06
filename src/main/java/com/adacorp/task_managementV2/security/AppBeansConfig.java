@@ -11,6 +11,7 @@ public class AppBeansConfig {
     // ✅ Bean unique
     @Bean
     public PasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
     }
 }

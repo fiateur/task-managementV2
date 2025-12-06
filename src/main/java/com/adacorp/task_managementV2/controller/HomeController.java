@@ -145,6 +145,6 @@ public class HomeController {
     public String logOut(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         request.getSession().invalidate();
         redirectAttributes.addFlashAttribute("SUCCESS", "Déconnexion réussie !");
-        return "redirect:/index-login";
+        return "index-login";
     }
 }

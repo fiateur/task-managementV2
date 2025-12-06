@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface HabilitationRepository extends JpaRepository<Habilitation, Long> {
@@ -14,6 +15,8 @@ public interface HabilitationRepository extends JpaRepository<Habilitation, Long
 
     @Query(nativeQuery = true , value = "select * FROM habilitation h WHERE h.code = :code ORDER BY h.creation_date DESC")
     List<Habilitation> findAllByCodeNativeQuery(@Param("code") String code) ;
+
+    Optional<Habilitation> findByCode(String code);
 
     @Query(value = "FROM Habilitation h WHERE h.code = :code ORDER BY h.dateCreation DESC")
     List<Habilitation> findAllByCodeJpqlQuery(@Param("code") String code) ;

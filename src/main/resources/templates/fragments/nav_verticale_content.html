@@ -33,7 +33,51 @@
                 </sec:authorize>
                 <!-- FIN DU MODULE UTILISATEUR -->
 
-                <!-- GESTION DU MODULE TACHES -->
+                <!-- GESTION DU MODULE ROLE -->
+                <th:block sec:authorize="hasAnyAuthority('ADMIN', 'USER', 'CONSULTATION')">
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        <th:block th:text="#{commun.label.roleManagement}"></th:block>
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                        <div class="collapse" id="collapseLayouts3" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link"
+                               sec:authorize="hasAnyAuthority('ADMIN')"
+                               th:href="@{/home-add-role}" th:text="#{commun.label.add}" target="_self">
+                            </a>
+                            <a class="nav-link"
+                               sec:authorize="hasAnyAuthority('ADMIN','CONSULTATION')"
+                               th:href="@{/home-list-roles}" th:text="#{commun.label.list}" target="_self">
+                            </a>
+                        </nav>
+                    </div>
+                </th:block>
+                <!-- FIN DU MODULE  ROLE -->
+
+                <!-- GESTION DU MODULE HABILITATION -->
+                <th:block sec:authorize="hasAnyAuthority('ADMIN', 'USER', 'CONSULTATION')">
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4" aria-expanded="false" aria-controls="collapseLayouts4">
+                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        <th:block th:text="#{page.habilitation.label.habilitationManagment}"></th:block>
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseLayouts4" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link"
+                               sec:authorize="hasAnyAuthority('ADMIN', 'USER')"
+                               th:href="@{/home-add-habilitation}" th:text="#{commun.label.add}" target="_self">
+                            </a>
+                            <a class="nav-link"
+                               sec:authorize="hasAnyAuthority('ADMIN','USER','CONSULTATION')"
+                               th:href="@{/home-list-habilitations}" th:text="#{commun.label.list}" target="_self">
+                            </a>
+                        </nav>
+                    </div>
+                </th:block>
+                <!-- FIN DU MODULE  HABILITATIONS -->
+
+                <!-- GESTION DU MODULE TACHE -->
                 <th:block sec:authorize="hasAnyAuthority('ADMIN', 'USER', 'CONSULTATION')">
                     <div class="sb-sidenav-menu-heading" th:text="#{commun.label.interfacesFonctionnelles}"></div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts2">
@@ -57,7 +101,7 @@
                 <!-- FIN DU MODULE GESTION DES TACHES -->
 
                 <!--  MODULE PAGE -->
-                <th:block sec:authorize="hasAnyAuthority('ADMIN','USER','CONSULTATION')">
+                <th:block sec:authorize="hasAnyAuthority('ADMIN','USER','CONSULTATION')" hidden="hidden">
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Pages
