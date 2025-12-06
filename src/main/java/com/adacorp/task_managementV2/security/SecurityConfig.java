@@ -50,6 +50,7 @@ public class SecurityConfig {
                         .requestMatchers("/index-forgot-password-otpValidation-code").permitAll()
                         .requestMatchers("/index-forgot-password-changePassword-After-otpValidation-code").permitAll()
                         .requestMatchers("/index-register-user").permitAll()
+                                .requestMatchers("/home-add-user").hasRole("ADMIN")
                         .requestMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/assets/**", "/images/**", "/assets/demo/**","/assets/img/**").permitAll()
                         // Le reste, s'authentifier
                         .anyRequest().authenticated()
@@ -79,7 +80,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/login?logout") // URL de redirection après déconnexion
                         .permitAll() // Permet l'accès à la page de déconnexion à tout le monde
                 )
-                //.exceptionHandling(exceptionHandling -> exceptionHandling.accessDeniedPage("/access-denied"))
+                .exceptionHandling(exceptionHandling -> exceptionHandling.accessDeniedPage("/accesDenied"))
                 .authenticationManager(authenticationManager);
 
         return httpSecurity.getOrBuild();

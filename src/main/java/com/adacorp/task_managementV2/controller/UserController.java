@@ -283,6 +283,11 @@ public class UserController {
         return "redirect:/home-list-users" ;
     }
 
+    @GetMapping(value = "/accesDenied")
+    public String accesDenied(RedirectAttributes redirectAttributes ) {
+        return "403" ;
+    }
+
     public void setAttributCommun (Model model){
         List<Role> roleList = this.roleService.findAll() ;
         model.addAttribute("TitreAdd", "page.user.addUser") ;
