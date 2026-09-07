@@ -14,7 +14,7 @@
                 </a>
 
                 <!-- GESTION DU MODULE UTILISATEUR -->
-                <sec:authorize access="hasRole('ADMIN') and hasRole('USER') and hasRole('CONSULTATION')">
+                <th:block sec:authorize="hasAnyAuthority('ADMIN', 'CONSULTATION','ROLE_ADMIN')">
                     <div class="sb-sidenav-menu-heading" th:text="#{commun.label.administration}"></div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -23,18 +23,28 @@
                     </a>
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <!--  Prend en compte un seul profil Utilisateur -->
-                            <a class="nav-link" sec:authorize="hasAuthority('ADMIN')" th:href="@{/home-add-user}" th:text="#{commun.label.add}" target="_self"></a>
-                            <sec:authorize access="hasRole('ADMIN') and hasRole('USER') and hasRole('CONSULTATION')">
-                                <a class="nav-link" th:href="@{/home-list-users}" th:text="#{commun.label.list}" target="_self"></a>
-                            </sec:authorize>
+
+                            <!-- Ajout utilisateur -->
+                            <a class="nav-link"
+                                sec:authorize="hasAnyAuthority('ADMIN','USER','CONSULTATION')"
+                                th:href="@{/home-add-user}"
+                                th:text="#{commun.label.add}">
+                            </a>
+
+                            <!-- Liste utilisateurs -->
+                            <a class="nav-link"
+                                sec:authorize="hasAnyAuthority('ADMIN','USER','CONSULTATION','ROLE_ADMIN')"
+                                th:href="@{/home-list-users}"
+                                th:text="#{commun.label.list}">
+                            </a>
+
                         </nav>
                     </div>
-                </sec:authorize>
+                </th:block>
                 <!-- FIN DU MODULE UTILISATEUR -->
 
                 <!-- GESTION DU MODULE ROLE -->
-                <th:block sec:authorize="hasAnyAuthority('ADMIN', 'USER', 'CONSULTATION')">
+                <th:block sec:authorize="hasAnyAuthority('ADMIN')">
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                         <th:block th:text="#{commun.label.roleManagement}"></th:block>
@@ -47,13 +57,35 @@
                                th:href="@{/home-add-role}" th:text="#{commun.label.add}" target="_self">
                             </a>
                             <a class="nav-link"
-                               sec:authorize="hasAnyAuthority('ADMIN','CONSULTATION')"
+                               sec:authorize="hasAnyAuthority('ADMIN','CONSULTATION', 'USER')"
                                th:href="@{/home-list-roles}" th:text="#{commun.label.list}" target="_self">
                             </a>
                         </nav>
                     </div>
                 </th:block>
                 <!-- FIN DU MODULE  ROLE -->
+
+                <!-- GESTION DU MODULE STATE -->
+                <th:block sec:authorize="hasAnyAuthority('ADMIN', 'USER')">
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts6" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        <th:block th:text="#{page.state.label.stateManagment}"></th:block>
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseLayouts6" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link"
+                               sec:authorize="hasAnyAuthority('ADMIN', 'USER')"
+                               th:href="@{/home-add-state}" th:text="#{commun.label.add}" target="_self">
+                            </a>
+                            <a class="nav-link"
+                               sec:authorize="hasAnyAuthority('ADMIN', 'USER')"
+                               th:href="@{/home-list-states}" th:text="#{commun.label.list}" target="_self">
+                            </a>
+                        </nav>
+                    </div>
+                </th:block>
+                <!-- FIN DU MODULE  STATE -->
 
                 <!-- GESTION DU MODULE HABILITATION -->
                 <th:block sec:authorize="hasAnyAuthority('ADMIN', 'USER', 'CONSULTATION')">
@@ -149,7 +181,7 @@
             </div>
         </div>
         <div class="sb-sidenav-footer">
-            <div class="small">Logged in as:
+            <div class="small" style="margin: 1px 0;">Logged in as:
                 <th:block sec:authorize="hasAuthority('ADMIN')" th:utext="${'ADMIN'}">Admin Profile.</th:block>
                 <!--  ****************************************************************  -->
                 <th:block sec:authorize="hasAnyAuthority('CONSULTATION','USER')">

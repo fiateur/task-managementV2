@@ -50,7 +50,7 @@ public class SecurityConfig {
                         .requestMatchers("/index-forgot-password-otpValidation-code").permitAll()
                         .requestMatchers("/index-forgot-password-changePassword-After-otpValidation-code").permitAll()
                         .requestMatchers("/index-register-user").permitAll()
-                                .requestMatchers("/home-add-user").hasRole("ADMIN")
+                        //.requestMatchers("/home-add-user").hasRole("ADMIN")
                         .requestMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/assets/**", "/images/**", "/assets/demo/**","/assets/img/**").permitAll()
                         // Le reste, s'authentifier
                         .anyRequest().authenticated()
