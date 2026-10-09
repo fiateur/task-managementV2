@@ -87,6 +87,10 @@
                                                 <a class="btn btn-info margin-justify" th:href="@{/home-edit-state(id = ${state.id}, id2 = ${state.id}) }">
                                                     <span class="btn-label"><i class="glyphicon glyphicon-refresh"></i></span>Modifier
                                                 </a>
+                                                <a class="btn btn-danger margin-justify" th:href="@{/rapport/state(id=${state.id})}"
+                                                   target="_blank">
+                                                    <span class="btn-label"><i class="glyphicon glyphicon-print"></i></span>Rapport
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>
